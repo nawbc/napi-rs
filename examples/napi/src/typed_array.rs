@@ -58,7 +58,7 @@ impl Task for AsyncBuffer {
   type Output = u32;
   type JsValue = u32;
 
-  fn compute(&mut self) -> Result<Self::Output> {
+  fn compute(&mut self, _env: Env) -> Result<Self::Output> {
     Ok(self.buf.iter().fold(0u32, |a, b| a + *b as u32))
   }
 

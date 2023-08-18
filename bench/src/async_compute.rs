@@ -7,7 +7,7 @@ impl Task for BufferLength {
   type Output = usize;
   type JsValue = JsNumber;
 
-  fn compute(&mut self) -> Result<Self::Output> {
+  fn compute(&mut self, _env: Env) -> Result<Self::Output> {
     Ok(self.0.len() + 1)
   }
 

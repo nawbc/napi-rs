@@ -18,7 +18,7 @@ impl Task for ComputeFib {
   type Output = u32;
   type JsValue = JsNumber;
 
-  fn compute(&mut self) -> Result<Self::Output> {
+  fn compute(&mut self, _env: Env) -> Result<Self::Output> {
     Ok(fibonacci_native(self.n))
   }
 
@@ -56,7 +56,7 @@ impl Task for CountBufferLength {
   type Output = usize;
   type JsValue = JsNumber;
 
-  fn compute(&mut self) -> Result<Self::Output> {
+  fn compute(&mut self, _env: Env) -> Result<Self::Output> {
     if self.data.len() == 10 {
       return Err(Error::from_reason("len can't be 5"));
     }

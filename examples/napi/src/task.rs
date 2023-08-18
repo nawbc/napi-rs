@@ -9,7 +9,7 @@ impl napi::Task for DelaySum {
   type Output = u32;
   type JsValue = u32;
 
-  fn compute(&mut self) -> Result<Self::Output> {
+  fn compute(&mut self, _env: Env) -> Result<Self::Output> {
     sleep(std::time::Duration::from_millis(100));
     Ok(self.0 + self.1)
   }

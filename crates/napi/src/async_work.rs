@@ -96,11 +96,14 @@ unsafe impl<T: Task + Sync> Sync for AsyncWork<T> {}
 
 /// env here is the same with the one in `CallContext`.
 /// So it actually could do nothing here, because `execute` function is called in the other thread mostly.
-unsafe extern "C" fn execute<T: Task>(_env: sys::napi_env, data: *mut c_void) {
+unsafe extern "C" fn execute<T: Task>(env: sys::napi_env, data: *mut c_void) {
   let mut work = unsafe { Box::from_raw(data as *mut AsyncWork<T>) };
   let _ = mem::replace(
     &mut work.value,
-    work.inner_task.compute().map(mem::MaybeUninit::new),
+    work
+      .inner_task
+      .compute(unsafe { Env::from_raw(env) })
+      .map(mem::MaybeUninit::new),
   );
   Box::leak(work);
 }

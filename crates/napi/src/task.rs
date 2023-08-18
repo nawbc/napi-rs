@@ -8,7 +8,7 @@ pub trait Task: Send + Sized {
   type JsValue: ToNapiValue + TypeName;
 
   /// Compute logic in libuv thread
-  fn compute(&mut self) -> Result<Self::Output>;
+  fn compute(&mut self, _env: Env) -> Result<Self::Output>;
 
   /// Into this method if `compute` return `Ok`
   fn resolve(&mut self, env: Env, output: Self::Output) -> Result<Self::JsValue>;
